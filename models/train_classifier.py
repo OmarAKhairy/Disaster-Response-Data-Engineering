@@ -50,14 +50,20 @@ def tokenize(text):
 def build_model():
     '''
     :param
-    :return: pipeline
+    :return: grid_search
     '''
     pipeline = Pipeline([
         ('vect', CountVectorizer(tokenizer=tokenize)),
         ('tfidf', TfidfTransformer()),
         ('clf', MultiOutputClassifier(RandomForestClassifier()))
     ])
-    return pipeline
+    parameters = {
+        'vect__ngram_range': [(1, 1), (1, 2)], 
+        'clf__n_estimators': [50, 100, 200],
+        'clf__min_samples_split': [2, 3, 4]
+    }
+    grid_search = GridSearchCV(pipeline, param_grid=parameters, cv=5)
+    return grid_search
 
 def evaluate_model(model, X_test, Y_test, category_names):
     '''
@@ -94,12 +100,14 @@ def main():
         
         print('Training model...')
         model.fit(X_train, Y_train)
+
+        best_estimator = model.best_estimator_
         
         print('Evaluating model...')
-        evaluate_model(model, X_test, Y_test, category_names)
+        evaluate_model(best_estimator, X_test, Y_test, category_names)
 
         print('Saving model...\n    MODEL: {}'.format(model_filepath))
-        save_model(model, model_filepath)
+        save_model(best_estimator, model_filepath)
 
         print('Trained model saved!')
 
