@@ -35,8 +35,7 @@ def clean_data(df):
     print(category_colnames)
     categories.columns = category_colnames
     for column in categories:
-        categories[column] =  categories[column].str[-1]
-        categories[column] = categories[column].astype(int)
+        categories[column] = pd.to_numeric(categories[column].str[-1].replace({'0': 0, '1': 1}), errors='coerce').fillna(1).astype(int)
     df.drop(columns=['categories'], inplace=True)
     df = pd.concat([df, categories], axis=1)
     df.drop_duplicates(inplace=True)
