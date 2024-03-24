@@ -43,6 +43,11 @@ def index():
     genre_counts = df.groupby('genre').count()['message']
     genre_names = list(genre_counts.index)
     
+    counts = df.eq(1).sum()
+    sorted_counts = counts.sort_values(ascending=False)
+    response_counts = sorted_counts.tolist()
+    response_names = sorted_counts.index.tolist()
+    
     # create visuals
     # TODO: Below is an example - modify to create your own visuals
     graphs = [
@@ -66,12 +71,39 @@ def index():
         }
     ]
     
+    
+    countGraphs = [
+        {
+            'data': [
+                Bar(
+                    x=response_names,
+                    y=response_counts
+                )
+            ],
+
+            'layout': {
+                'title': 'Categories Distribution',
+                'yaxis': {
+                    'title': "Count"
+                },
+                'xaxis': {
+                    'title': "Category"
+                }
+            }
+        }
+    ]
+    
+    
     # encode plotly graphs in JSON
     ids = ["graph-{}".format(i) for i, _ in enumerate(graphs)]
     graphJSON = json.dumps(graphs, cls=plotly.utils.PlotlyJSONEncoder)
     
+    categoryIds = ["graph-{}".format(i) for i, _ in enumerate(countGraphs)]
+    categoryGraphJSON = json.dumps(countGraphs, cls=plotly.utils.PlotlyJSONEncoder)
+    
     # render web page with plotly graphs
-    return render_template('master.html', ids=ids, graphJSON=graphJSON)
+    return render_template('master.html', ids=ids, graphJSON=graphJSON, 
+                           categoryIds=categoryIds, categoryGraphJSON=categoryGraphJSON)
 
 
 # web page that handles user query and displays model results
