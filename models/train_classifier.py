@@ -20,6 +20,10 @@ nltk.download(['punkt', 'wordnet'])
 
 
 def load_data(database_filepath):
+    '''
+    :param database_filepath:
+    :return: X, Y, category_names
+    '''
     engine = create_engine('sqlite:///'+database_filepath)
     df = pd.read_sql_table('Messages', con=engine)
     X = df["message"]
@@ -29,6 +33,10 @@ def load_data(database_filepath):
 
 
 def tokenize(text):
+    '''
+    :param text:
+    :return: clean_tokens
+    '''
     text = re.sub(r'[^\w\s]', '', text.lower())
     tokens = word_tokenize(text)
     lemmatizer = WordNetLemmatizer()
@@ -40,6 +48,10 @@ def tokenize(text):
 
 
 def build_model():
+    '''
+    :param
+    :return: pipeline
+    '''
     pipeline = Pipeline([
         ('vect', CountVectorizer(tokenizer=tokenize)),
         ('tfidf', TfidfTransformer()),
@@ -48,6 +60,10 @@ def build_model():
     return pipeline
 
 def evaluate_model(model, X_test, Y_test, category_names):
+    '''
+    :param model, X_test, Y_test, category_names
+    :return:
+    '''
     y_pred = model.predict(X_test)
     for i, column in enumerate(category_names):
         y_pred_column = y_pred[:, i]
@@ -57,6 +73,10 @@ def evaluate_model(model, X_test, Y_test, category_names):
 
 
 def save_model(model, model_filepath):
+    '''
+    :param model, model_filepath
+    :return:
+    '''
     with open(model_filepath, 'wb') as file:
         pickle.dump(model, file)
     print("Model exported successfully as:", model_filepath)
