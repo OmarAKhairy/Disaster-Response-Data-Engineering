@@ -3,18 +3,32 @@
 
 ## Table of Contents
 
-1. [Introduction](#introduction)
-2. [Installation](#installation)
-3. [Usage](#usage)
-4. [Acknowledgements](#acknowledgements)
+1. [Project Summary](#summary)
+2. [Dependencies](#dependencies)
+3. [Files](#files)
+4. [Usage](#usage)
+5. [Acknowledgements](#acknowledgements)
 
 
-## Introduction <a name="introduction"></a>
+## Project Summary <a name="summary"></a>
 
-This is an attempt to buld an ETL and ML pipelines as well as a simple web app to use the created model to classify messages in case of disasters.
+Disaster Response Classifier Web Application
+
+In times of crisis and disaster, effective communication and swift action are crucial for saving lives and mitigating damage. 
+The Disaster Response Classifier is a web application that leverages machine learning to categorize incoming messages, enabling responders to identify and prioritize urgent needs more efficiently.
+
+### Key Features:
+- Message Classification: Utilizes a trained machine learning model to classify incoming messages into predefined categories such as "aid_related" "medical_help" "search_and_rescue" and more.
+- Actionable Insights: Empowers emergency response teams with actionable insights by highlighting critical messages and trends.
+- Visualization: Results are visualized in an easy-to-understand format, allowing responders to prioritize actions effectively.
+
+### Why It Matters:
+Efficiency: Automates the categorization process, saving valuable time and resources for emergency response teams.
+Effectiveness: Ensures that critical messages are identified promptly, leading to faster and more targeted response efforts.
+Scalability: Can be easily scaled to handle large volumes of messages during major disasters or crises.
 
 
-## Installation <a name="installation"></a>
+## Dependencies <a name="dependencies"></a>
 
 The following packages is needed for the scripts and applications to work:
 - nltk
@@ -24,6 +38,23 @@ The following packages is needed for the scripts and applications to work:
 - sklearn
 - sqlalchemy
 - pickle
+
+
+## Files <a name="files"></a
+
+    data:
+        - process_data.py (The script contians the ETL pipeline) 
+        - disaster_categories.csv (Categories dataset)
+        - disaster_messages.csv (Messages dataset)
+      
+    models:
+        - train_classifier.py (The script contians the ML pipeline) 
+      
+    app:
+        - templates
+            - go.html (Shows the results of the model classification for the input message)
+            - master.html (The web app home page) 
+        - run.py
 
 
 ## Usage <a name="usage"></a>
