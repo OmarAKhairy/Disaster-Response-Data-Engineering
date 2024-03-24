@@ -15,12 +15,20 @@ nltk.download(['punkt', 'wordnet'])
 
 
 def load_data(messages_filepath, categories_filepath):
+    '''
+    :param messages_filepath, categories_filepath
+    :return: df
+    '''
     messages = pd.read_csv(messages_filepath, encoding='latin-1')
     categories = pd.read_csv(categories_filepath, encoding='latin-1')
     df = pd.merge(messages, categories, on='id')
     return df
     
 def clean_data(df):
+    '''
+    :param df
+    :return: df
+    '''
     categories = df['categories'].str.split(';', expand=True)
     row = categories.iloc[0]
     category_colnames = row.apply(lambda x: x[:-2])
@@ -35,6 +43,10 @@ def clean_data(df):
     return df
     
 def save_data(df, database_filename):
+    '''
+    :param df, database_filename
+    :return:
+    '''
     engine = create_engine('sqlite:///'+database_filename)
     df.to_sql('Messages', engine, index=False)  
 
