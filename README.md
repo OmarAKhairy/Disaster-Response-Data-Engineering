@@ -47,6 +47,7 @@ Node: In case you want to use the models/classifier.pkl directly please extract 
 ## Acknowledgements <a name="acknowledgements"></a>
 
 [Udacity](https://learn.udacity.com/) for provding the training and scripts templates.
+
 [Appen](https://www.appen.com/) for providing the datasets used to train the model.
 
 
