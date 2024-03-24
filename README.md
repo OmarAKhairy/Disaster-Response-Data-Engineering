@@ -5,7 +5,7 @@
 
 1. [Project Summary](#summary)
 2. [Dependencies](#dependencies)
-3. [Files](#files)
+3. [Project Structure](#structure)
 4. [Usage](#usage)
 5. [Acknowledgements](#acknowledgements)
 
@@ -40,7 +40,7 @@ The following packages is needed for the scripts and applications to work:
 - pickle
 
 
-## Files <a name="files"></a
+## Project Structure <a name="structure"></a>
 
     data:
         - process_data.py (The script contians the ETL pipeline) 
